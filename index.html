@@ -1,156 +1,891 @@
 
-<!DOCTYPE html>
-<html lang="de">
+<script src="ausgabe.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 <head>
-    <meta charset="UTF-8">
+    <title>NovaBot - Bothosting Dienst</title>
+
+    <link rel="icon" href="logo.png" type="image/png" />
+    <link rel="apple-touch-icon" href="logo.png">
+    <!-- Old CSS Files (not remove) -->
+    <link rel="stylesheet" href="style.css">
+    <meta name="apple-mobile-web-app-title" content="NovaBot">
+    <!-- Changes -->
+    <link rel="stylesheet" href="icons.css">
+
+    <!-- CSS Changes -->
+    <link rel="stylesheet" href="changes.css">
+    <script>!function (e) { if ("object" == typeof exports && "undefined" != typeof module) module.exports = e(); else if ("function" == typeof define && define.amd) define([], e); else { ("undefined" != typeof window ? window : "undefined" != typeof global ? global : "undefined" != typeof self ? self : this).charming = e() } }(function () { return function () { return function e(n, r, t) { function o(f, u) { if (!r[f]) { if (!n[f]) { var a = "function" == typeof require && require; if (!u && a) return a(f, !0); if (i) return i(f, !0); var l = new Error("Cannot find module '" + f + "'"); throw l.code = "MODULE_NOT_FOUND", l } var d = r[f] = { exports: {} }; n[f][0].call(d.exports, function (e) { return o(n[f][1][e] || e) }, d, d.exports, e, n, r, t) } return r[f].exports } for (var i = "function" == typeof require && require, f = 0; f < t.length; f++)o(t[f]); return o } }()({ 1: [function (e, n, r) { n.exports = function (e, n) { n = n || {}, e.normalize(); var r = n.splitRegex, t = n.tagName || "span", o = null != n.classPrefix ? n.classPrefix : "char", i = 1; function f(e) { for (var n = e.parentNode, f = e.nodeValue, u = r ? f.split(r) : f, a = u.length, l = -1; ++l < a;) { var d = document.createElement(t); o && (d.className = o + i, i++), d.appendChild(document.createTextNode(u[l])), d.setAttribute("aria-hidden", "true"), n.insertBefore(d, e) } "" !== f.trim() && n.setAttribute("aria-label", f), n.removeChild(e) } !function e(n) { if (3 === n.nodeType) return f(n); var r = Array.prototype.slice.call(n.childNodes), t = r.length; if (1 === t && 3 === r[0].nodeType) return f(r[0]); for (var o = -1; ++o < t;)e(r[o]) }(e) } }, {}] }, {}, [1])(1) });</script>
+    <script src="https://cdn.jsdelivr.net/npm/escape-html@1.0.3/index.min.js"></script>
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wartungsarbeiten</title>
-    <style>
-        body {
-            margin: 0;
-            background-color: #181A1B;
-            font-family: 'Inter', sans-serif;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
+    <meta name="keywords"
+        content="griefergames,griefergamesbot,bothosting,ggbot,grieferbot,novabot,free,griefergamesfreebot" />
+    <meta name="description"
+        content="Du kannst auf NovaBot deinen eigenen GrieferGames Verkaufs-/Ankaufsbot mit Hilfe des intuitiven Webpanels hosten." />
 
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+    <script src="script.js"></script>
+    <script src="https://novabot.statuspage.io/embed/script.js"></script>
 
-        header {
-            position: absolute;
-            top: 34px;
-            left: 34px;
-            right: 34px;
-            width: calc(100% - 68px);
-            height: 60px;
-            background-color: #000000;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 27px;
-            box-sizing: border-box;
-        }
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-        header h1 {
-            font-size: 40px;
-            font-weight: 700;
-            color: white;
-            margin: 0;
-        }
+        gtag('config', 'G-2TDQES1EQ8');
+    </script>
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    <!--<div class="dismissable-header" id="header" style="display: none;">
+        <span>Sponsor: <a href="https://cube-hosting.net/cp/aff.php?aff=17">Dein eigener, günstiger
+                Server?!</a></span>
+        <span class="close-btn2" onclick="dismissHeader();">&times;</span>
+    </div>-->
 
-        .nav-links a {
-            text-decoration: none;
-            color: white;
-            font-size: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px;
-            border-radius: 10px;
-            background-color: #181A1B;
-            width: 100px;
-            justify-content: center;
-        }
-
-        .nav-links a:hover {
-            background-color: #333;
-        }
-
-        .fa {
-            font-size: 150px;
-            color: red;
-        }
-
-        .content {
-            text-align: center;
-        }
-
-        .content h2 {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 30px;
-        }
-
-        .content p {
-            font-size: 24px;
-            margin-top: 60px;
-        }
-
-        .nav-links i {
-            font-size: 20px;
-            color: white;
-        }
-
-        .login-icon {
-            font-size: 18px;
-        }
-
-        footer {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 14px;
-            color: white;
-        }
-
-        footer a {
-            color: white;
-            text-decoration: none;
-            margin: 0 5px;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
-<body>
-    <header>
-        <h1>NovaBot</h1>
-        <div class="nav-links">
-            <a href="https://gg-novabot.gitbook.io/grieferbot-wiki" target="_blank">
-                <i class="fa fa-book"></i>
-                Wiki
-            </a>
-            <a href="https://discord.gg/CwdVEafsPx" target="_blank">
-                <i class="fa fa-comments"></i>
-                Discord
-            </a>
-            <a href="/dashboard">
-                <i class="fa fa-bar-chart"></i>
-                Dashboard
-            </a>
-            <a href="/login">
-                <i class="fa fa-sign-in login-icon"></i>
-                Login
-            </a>
-        </div>
-    </header>
 
-    <div class="content">
-        <i class="fa fa-exclamation-triangle fa-5x"></i>
-        <h2>Wir sind bald zurück</h2>
-        <p>Diese Website ist aufgrund von Wartungsarbeiten momentan nicht verfügbar.<br>Bitte versuchen Sie es später noch einmal.</p>
+<style>
+    .blurred {
+        filter: blur(10px);
+        /* Adjust the blur amount as needed */
+        transition: filter 0.5s ease;
+        /* Smooth transition for the blur effect */
+    }
+</style>
+
+<body>
+
+
+    <div id="snowflakes"></div>
+    <div class="pyro" id="pyro" style="display: none;">
+        <div class="before"></div>
+        <div class="after"></div>
+    </div>
+    <div id="halloween" style="display: none;">Halloween!</div>
+
+    <div onclick="toggleNav()" id="fixedbutton"><span id="fixedbuttonicon" class="fixedbutton__icon">≡</span></div>
+
+    <div class="container">
+        <nav class="sidebar" id="navbar">
+            <div>
+                <span class="side-nav__header"><span class="icon-users mr"></span>Account</span>
+                <div class="sidebar__logo">
+                    
+                        <img onclick="switchAccount()" class="pixelated_image"
+                            src="https://mc-heads.net/avatar/ShadowWolf_CB/100" height="40" width="40" />
+                        
+                            <h2 class="sidebar__logo-header" id="nametext">
+                                ShadowWolf_CB
+                            </h2>
+                </div>
+
+                <script>
+                    if ("false" == "true") document.getElementById("nametext").style.color = "gold";
+                </script>
+
+                <ul class="side-nav">
+                    <span class="side-nav__header" onclick="window.location.href = '/dashboard'"><span
+                            class="icon-bookmark mr"></span>Menu</span>
+                    <li id="dashboardItem" class="side-nav__item side-nav__item-active"
+                        onclick="window.location.href = '/dashboard'">
+                        <span><span class="icon-home3 mr"></span>Dashboard</span>
+                    </li>
+                    <li id="consoleItem" class="side-nav__item" onclick="window.location.href = '/console'">
+                        <span><span class="icon-terminal mr"></span>Konsole</span>
+                    </li>
+                    <li id="viewerItem" class="side-nav__item"
+                        onclick="/* if (isMobileDevice() == true){Swal.fire({title: 'Mobiles Gerät erkannt!', text: 'Sorry, der Viewer funktioniert leider nicht auf mobilen Geräten!',type: 'warning',});return;}*/window.open('/viewer?botid=3VDyWPpa8IbJkc0gK4AuRmSLe3Vwqv&token='+bottoken, 'Popup', 'width=1000,height=800');">
+                        <span><span class="icon-eye mr"></span>Viewer (BETA)</span>
+                    </li>
+                    <li id="moduleItem" class="side-nav__item" onclick="window.location.href = '/module'">
+                        <span><span class="icon-stack mr"></span>Verkauf / Ankauf</span>
+                    </li>
+                    <li id="statisticItem" class="side-nav__item" onclick="window.location.href = '/statistic'">
+                        <span><span class="icon-stats-bars mr"></span>Statistik</span>
+                    </li>
+                    <li id="teamItem" class="side-nav__item" onclick="window.location.href='/team';">
+                        <span><span class="icon-users mr"></span>Team (BETA)</span>
+                    </li>
+           
+                    <li id="settingsItem" class="side-nav__item" onclick="window.location.href = '/settings'">
+                        <span><span class="icon-cogs mr"></span>Einstellungen</span>
+                    </li>
+                    <li id="wikiItem" class="side-nav__item" onclick="window.location.href = '/wiki'">
+                        <span><span class="icon-books mr"></span>Wiki</span>
+                    </li>
+
+                </ul>
+            </div>
+
+            <ul class="side-nav">
+                <li id="sortimentliste" class="side-nav__item last-item">
+                    <a onclick="setWindowLocationHrefOnClick()"><span
+                            class="icon-list mr"></span>Sortiment Liste (BETA)</a>
+                </li>
+                <li class="side-nav__item last-item">
+                    <a onclick="deleteAllCookies();"><span class="icon-exit mr"></span>Ausloggen</a>
+                </li>
+                <li class="side-nav__item last-item">
+                    <a id="modeToggleBtn"><span class="icon-brightness-contrast mr"></span>Dunkler/Heller Modus</a>
+                </li>
+            </ul>
+
+
+        </nav>
+
+        <script>
+            setWindowLocationHrefOnClick = () => {
+                window.location.href='https://nova-bot.net/sortiment/ShadowWolf_CB';
+            }
+
+            //on document load
+            document.addEventListener('DOMContentLoaded', function () {
+                //check if the user has a cookie called showMenu
+                if (getCookie("newAGBs") == "true") {
+                    return
+                } else {
+                    Swal.fire({
+                        title: "Neue Nutzungsbedingungen!",
+                        text: "Ab jetzt dürfen alle (auch mit Premium) nicht mehr NovaBot zum AFK Farmen nutzen, da sie sonnst ggf. von GrieferGames gebannt werden können. Zudem wollen wir keine Casinos und Glücksspiel Bots mehr hosten und bitten um Verständnis.",
+                        footer: '<a href="https://nova-bot.net/rechtliches">Jetzt lesen</a>',
+                        showCancelButton: true,
+                        confirmButtonText: "Ich habe die AGBs gelesen und akzeptiere sie",
+                        showCloseButton: false,
+                        showCancelButton: false,
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            setCookie("newAGBs", "true", 365)
+                        } else {
+                            deleteAllCookies()
+                        }
+                    });
+                }
+
+            });
+
+            if ("false" == "true") {
+                toggleNav()
+            }
+
+            function isMobileDevice() {
+                return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+            }
+
+            function premiumOnly() {
+                if ("false" == "true") return
+                Swal.fire({
+                    title: "Nur für Premium benutzer!",
+                    text: "Sorry. Diese Funktion ist nur für Premium Benutzer verfügbar! ",
+                    imageUrl: "premium.png",
+                    imageWidth: 200,
+                    imageHeight: 200,
+                    imageAlt: "Custom image",
+                    footer: '<a href="https://nova-bot.net/premium">Premium kaufen / mehr erfahren</a>',
+                    showCancelButton: false,
+                    showCloseButton: false,
+                    showConfirmButton: false,
+                });
+            }
+
+            function switchAccount() {
+                if ("false" != "true") {
+                    premiumOnly()
+                    return
+                }
+
+                let TeamLinkOnly = getCookie("TeamLinkOnly");
+                if (!TeamLinkOnly) {
+                    let accounts = JSON.parse(getData("allaccounts"));
+                    let currentAccount = "3VDyWPpa8IbJkc0gK4AuRmSLe3Vwqv-" + getCookie("BotToken");
+
+                    for (let i = 0; i < accounts.length; i++) {
+                        if (accounts[i] === currentAccount) {
+                            accounts.splice(i, 1);
+                        }
+                    }
+
+                    let randomAccount = accounts[Math.floor(Math.random() * accounts.length)];
+                    let botidnew = randomAccount.split("-")[0];
+                    let tokennew = randomAccount.split("-")[1];
+
+                    setCookie("BotToken", tokennew);
+                    setCookie("BotID", botidnew);
+                    window.location.reload();
+                }
+            }
+            //get cookie BotToken
+            function getCookie(name) {
+                const cookieName = name + "=";
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = cookies[i].trim();
+                    if (cookie.indexOf(cookieName) === 0) {
+                        return cookie.substring(cookieName.length, cookie.length);
+                    }
+                }
+                return "";
+            }
+
+            let bottoken = getCookie("BotToken");
+            if (!bottoken) {
+                deleteAllCookies()
+            }
+
+            function createSnowflakes() {
+                const snowflakes = document.getElementById('snowflakes');
+                const numSnowflakes = 100;
+
+                for (let i = 0; i < numSnowflakes; i++) {
+                    const snowflake = document.createElement('div');
+                    snowflake.className = 'snowflake';
+                    snowflake.style.left = Math.random() * 100 + 'vw';
+                    snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    snowflake.style.animationDelay = (Math.random() * 5) + 's';
+                    snowflakes.appendChild(snowflake);
+
+                }
+            }
+
+
+            function checkSpecialDates() {
+
+                const currentDate = new Date();
+                const currentMonth = currentDate.getMonth() + 1;
+                const currentDay = currentDate.getDate();
+
+                if ((currentMonth === 12 && currentDay == 24) || (currentMonth === 12 && currentDay == 25)) {
+                    createSnowflakes();
+                }
+
+
+                if ((currentMonth === 12 && currentDay > 25) || (currentMonth === 1 && currentDay === 1)) {
+                    document.getElementById('pyro').style.display = 'block';
+                }
+
+                // Ostern: Beispielhaft mit April als Datum
+                if (currentMonth === 4) {
+                    document.getElementById('halloween').innerText = 'Ostern!';
+                }
+            }
+
+            // Überprüfung bei Laden der Seite
+            checkSpecialDates();
+
+
+            const body = document.body;
+            const modeToggleBtn = document.getElementById('modeToggleBtn');
+
+            // Apply initial mode based on saved preference
+            body.classList.add(localStorage.getItem('preferredMode') || 'light-mode');
+
+            // Attach event listener to the toggle button
+            modeToggleBtn.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                body.classList.toggle('light-mode');
+
+                // Save user's preference to localStorage
+                localStorage.setItem('preferredMode', body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode');
+            });
+
+            let data = null;
+
+            async function fetchData() {
+                if (document.hidden) return;
+                const response = await fetch('/getData?botid=3VDyWPpa8IbJkc0gK4AuRmSLe3Vwqv&token=' + bottoken);
+                const responseData = await response.json();
+                data = responseData;
+                
+                if (getData("banned") != "no") {
+                    alert("Du wurdest von NovaBot gebannt!")
+                    deleteAllCookies();
+                }
+                if (getData("failedToObtainProfile") == true) {
+                    if (!getCookie("failedToObtainProfile") == "true") {
+                        window.location.href = "/failedToObtainProfile"
+                        document.cookie = "failedToObtainProfile=true"
+                    }
+
+                }
+                updateUI();
+
+            }
+
+            function getData(requiredElement) {
+                for (var key in data) {
+                    var value = data[key];
+                    if (key == requiredElement) {
+                        return value;
+                    }
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                let wartung = false
+                if (wartung == true) {
+                    Swal.fire({
+                        title: "NovaBot befindet sich in Wartungsarbeiten!",
+                        text: "Es könnte zu Fehlern kommen!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Ja, ich möchte trotzdem fortfahren!"
+                    }).then((result) => {
+                        if (!result.isConfirmed) {
+                            res.redirect("/")
+                        }
+                    });
+                }
+
+                setInterval(fetchData, 8000);
+                fetchData();
+            });
+
+
+            // Function to navigate to a URL
+            function navigateTo(url) {
+                window.location.href = url;
+            }
+
+            // Function to set the active state on the current page's list item
+            function setActiveNavItem() {
+                const currentPath = window.location.pathname;
+
+                // Define an object with IDs and their respective URLs
+                const navItems = {
+                    dashboardItem: '/dashboard',
+                    consoleItem: '/console',
+                    moduleItem: '/module',
+                    settingsItem: '/settings',
+                    statisticItem: '/statistic'
+                };
+
+                // Loop through the object and compare each URL with the current URL
+                for (const [itemId, itemUrl] of Object.entries(navItems)) {
+                    const listItem = document.getElementById(itemId);
+                    if (currentPath === itemUrl) {
+                        listItem.classList.add('side-nav__item-active');
+                    } else {
+                        listItem.classList.remove('side-nav__item-active');
+                        listItem.classList.add("side-nav__item")
+                    }
+                }
+            }
+
+            // Call the function initially to set the active state on page load
+            setActiveNavItem();
+
+
+            function deleteAllCookies() {
+                const cookies = document.cookie.split(";");
+
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i];
+                    const eqPos = cookie.indexOf("=");
+                    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+                }
+
+                window.location.href = "/"
+            }
+        </script>
+
+
+        <script>
+
+            document.addEventListener("DOMContentLoaded", function () {
+                checkCookie();
+            });
+
+            function checkCookie() {
+                var dismissed = getCookie("dismissed");
+                if (dismissed == "true") {
+                    document.getElementById("header").style.display = "none";
+                } else {
+                    document.getElementById("header").style.display = "block";
+                }
+            }
+
+            function dismissHeader() {
+                document.getElementById("header").style.display = "none";
+                setCookie("dismissed", "true", 0.5); // Setzt den Cookie für 30 Minuten
+            }
+
+            function setCookie(name, value, hours) {
+                const expiration = new Date();
+                expiration.setTime(expiration.getTime() + (hours * 60 * 60 * 1000));
+                const expires = "expires=" + expiration.toUTCString();
+                document.cookie = name + "=" + value + ";" + expires + ";path=/";
+            }
+
+            // Function to get the value of a cookie by its name
+            function getCookie(name) {
+                const cookieName = name + "=";
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = cookies[i].trim();
+                    if (cookie.indexOf(cookieName) === 0) {
+                        return cookie.substring(cookieName.length, cookie.length);
+                    }
+                }
+                return "";
+            }
+
+
+        </script>
+
+        <style>
+            /* Stile für Animationen */
+            #halloween {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+            }
+
+            .snowflake {
+                position: absolute;
+                background: #fff;
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                pointer-events: none;
+                animation: snowfall linear infinite;
+            }
+
+            @keyframes snowfall {
+                0% {
+                    transform: translateY(-10vh) rotate(0deg);
+                }
+
+                100% {
+                    transform: translateY(100vh) rotate(360deg);
+                }
+            }
+
+
+
+            .pyro>.before,
+            .pyro>.after {
+                position: absolute;
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                box-shadow: -120px -218.66667px blue, 248px -16.66667px #00ff84, 190px 16.33333px #002bff, -113px -308.66667px #ff009d, -109px -287.66667px #ffb300, -50px -313.66667px #ff006e, 226px -31.66667px #ff4000, 180px -351.66667px #ff00d0, -12px -338.66667px #00f6ff, 220px -388.66667px #99ff00, -69px -27.66667px #ff0400, -111px -339.66667px #6200ff, 155px -237.66667px #00ddff, -152px -380.66667px #00ffd0, -50px -37.66667px #00ffdd, -95px -175.66667px #a6ff00, -88px 10.33333px #0d00ff, 112px -309.66667px #005eff, 69px -415.66667px #ff00a6, 168px -100.66667px #ff004c, -244px 24.33333px #ff6600, 97px -325.66667px #ff0066, -211px -182.66667px #00ffa2, 236px -126.66667px #b700ff, 140px -196.66667px #9000ff, 125px -175.66667px #00bbff, 118px -381.66667px #ff002f, 144px -111.66667px #ffae00, 36px -78.66667px #f600ff, -63px -196.66667px #c800ff, -218px -227.66667px #d4ff00, -134px -377.66667px #ea00ff, -36px -412.66667px #ff00d4, 209px -106.66667px #00fff2, 91px -278.66667px #000dff, -22px -191.66667px #9dff00, 139px -392.66667px #a6ff00, 56px -2.66667px #0099ff, -156px -276.66667px #ea00ff, -163px -233.66667px #00fffb, -238px -346.66667px #00ff73, 62px -363.66667px #0088ff, 244px -170.66667px #0062ff, 224px -142.66667px #b300ff, 141px -208.66667px #9000ff, 211px -285.66667px #ff6600, 181px -128.66667px #1e00ff, 90px -123.66667px #c800ff, 189px 70.33333px #00ffc8, -18px -383.66667px #00ff33, 100px -6.66667px #ff008c;
+                animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+            }
+
+            .pyro>.after {
+                animation-delay: 1.25s, 1.25s, 1.25s;
+                animation-duration: 1.25s, 1.25s, 6.25s;
+            }
+
+
+            @keyframes bang {
+                from {
+                    box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white;
+                }
+            }
+
+            @keyframes gravity {
+                to {
+                    transform: translateY(200px);
+                    -moz-transform: translateY(200px);
+                    -webkit-transform: translateY(200px);
+                    -o-transform: translateY(200px);
+                    -ms-transform: translateY(200px);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes gravity {
+                to {
+                    transform: translateY(200px);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes position {
+
+                0%,
+                19.9% {
+                    margin-top: 10%;
+                    margin-left: 40%;
+                }
+
+                20%,
+                39.9% {
+                    margin-top: 40%;
+                    margin-left: 30%;
+                }
+
+                40%,
+                59.9% {
+                    margin-top: 20%;
+                    margin-left: 70%;
+                }
+
+                60%,
+                79.9% {
+                    margin-top: 30%;
+                    margin-left: 20%;
+                }
+
+                80%,
+                99.9% {
+                    margin-top: 30%;
+                    margin-left: 80%;
+                }
+            }
+
+
+            /* Stile für Halloween */
+            .halloween {
+                display: block;
+                font-size: 48px;
+                color: orange;
+                text-align: center;
+                margin-top: 30vh;
+                pointer-events: none;
+                animation: pumpkin-bounce 1s infinite alternate;
+            }
+
+            @keyframes pumpkin-bounce {
+                0% {
+                    transform: translateY(0);
+                }
+
+                100% {
+                    transform: translateY(-10px);
+                }
+            }
+        </style>
+
+
+    <div class="main-container">
+        <main class="main-content">
+            <header class="header">
+                <h1 class="title"><span class="icon-home3 mr2"></span>Dashboard</h1>
+            </header>
+
+            <div class="bottom-container">
+                <div class="bottom-container__right row">
+                    <div class="box">
+                        <div class="header-container">
+                            <h3 class="section-header" id="kontotitel">Kontostand (Konto)</h3>
+                        </div>
+                        <h1 class="price">
+                            <span id="money" class="price-value">...</span><span class="price-currency"></span>
+                        </h1>
+                    </div>
+                    <div class="box">
+                        <div class="header-container">
+                            <h3 class="section-header" id="kontobanktitel">Kontostand (Bank)</h3>
+                        </div>
+                        <h1 class="price">
+                            <span id="bankmoney" class="price-value">...</span><span class="price-currency"></span>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-container">
+                <div class="bottom-container__right">
+                    <div class="box">
+                        <div class="header-container">
+                            <h3 class="section-header">Logs</h3>
+                        </div>
+                        <textarea id="logsbox" name="logsbox" rows="4" cols="50" readonly
+                            style="width: 100%; height: 60%; overflow: visible;"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-container">
+                <div class="bottom-container__right">
+                    <div class="box" style="text-align: center;">
+                        <div class="header-container" style="text-align: center;">
+                            <h3 class="section-header" id="statusHeader">Lade...</h3>
+                        </div>
+                        <label></label>
+                        <p><br></p>
+                        <p><br></p>
+                        <div class="buttons">
+                            <button class="button button-main" id="startButton" disabled><span
+                                    class="icon-rocket mr"></span>Start</button>
+                            <button class="button button-secondary" id="stopButton" disabled><span
+                                    class="icon-clock mr"></span>Stop</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
     </div>
 
-    <footer>
-        <a href="/datenschutz" target="_blank">Datenschutz</a> | 
-        <a href="/agb" target="_blank">AGBs</a>
-    </footer>
-</body>
-</html>
+    <script src="https://cdn.jsdelivr.net/npm/escape-html@1.0.3/index.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.2.1/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+        function vibrateWebsite() {
+            //document.body.classList.add("vibrate");
+            setTimeout(function () {
+                //  document.body.classList.remove("vibrate");
+            }, 500); // Ändere die Dauer der Vibration nach deinem Wunsch (hier 500 Millisekunden).
+        }
+
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+
+        function updateUI() {
+            const moneyElement = document.getElementById('money');
+            const bankmoneyElement = document.getElementById('bankmoney');
+
+            const logsboxElement = document.getElementById('logsbox');
+            const statusHeader = document.getElementById('statusHeader');
+            if (getData("server") == "landmania.net") {
+                document.getElementById("kontotitel").textContent = "Kontostand (Coins)"
+                document.getElementById("kontobanktitel").textContent = "Kontostand (Kristalle)"
+            }
+
+            moneyElement.textContent = getData("money");
+            bankmoneyElement.textContent = getData("bankmoney");
+
+
+            logsboxElement.textContent = getData("logs");
+
+            const textarea = document.getElementById('logsbox');
+            textarea.scrollTop = textarea.scrollHeight;
+
+            const statustext = getData("statustext");
+
+            if (statustext === "offline") {
+                statusHeader.textContent = "❌ (Offline) ❌"
+                statusHeader.style.color = "red";
+            } else if (statustext == "server") {
+                statusHeader.textContent = "🟡 (Suche Server...) 🟡"
+                statusHeader.style.color = "orange";
+            } else if (statustext == "queued") {
+                statusHeader.textContent = "🟡 (Warteschlange) 🟡"
+                statusHeader.style.color = "orange";
+            } else if (statustext === "portalraum") {
+                statusHeader.textContent = "🟡 (Portalraum) 🟡"
+                statusHeader.style.color = "orange";
+            } else if (statustext === "online") {
+                statusHeader.textContent = "✅ (Online) ✅"
+                statusHeader.style.color = "green";
+            } else if (statustext === "created") {
+                statusHeader.textContent = "🕒 (Erstellt) 🕒"
+                statusHeader.style.color = "gray";
+            } else if (statustext === "restarting") {
+                statusHeader.textContent = "🔄 (Neustart) 🔄"
+                statusHeader.style.color = "blue";
+            } else if (statustext === "aktion") {
+                statusHeader.textContent = "❗ (Aktion erforderlich) ❗"
+                statusHeader.style.color = "red";
+            } else if (statustext === "first") {
+                statusHeader.textContent = "Dein Server wird einmalig erstellt... Dies könnte bis zu 5 Minuten dauern."
+                statusHeader.style.color = "blue";
+            } else if (statustext.startsWith("queue")) {
+                let time = statustext.replace("queue ", ""); // Assuming statustext contains the time in the format hh:mm:ss
+                let [hours, minutes, seconds] = time.split(":").map(Number);
+
+                //current time
+                let currentTime = new Date();
+                let currentHours = currentTime.getHours();
+                let currentMinutes = currentTime.getMinutes();
+                let currentSeconds = currentTime.getSeconds();
+
+                // Calculate the remaining time in seconds
+                let remainingSeconds = (hours - currentHours) * 3600 + (minutes - currentMinutes) * 60 + (seconds - currentSeconds);
+                if (remainingSeconds > 120) {
+                    remainingSeconds = time
+                }
+                statusHeader.textContent = `🟡 (Warteschlange) 🟡 - ${remainingSeconds} Sekunden bis zum Start`;
+                statusHeader.style.color = "orange";
+
+            } else {
+                statusHeader.textContent = statustext
+                statusHeader.style.color = "gray";
+            }
+
+
+            const status = getData("status");
+
+            startButton.disabled = status;
+            stopButton.disabled = !status;
+
+            if (startButton.disabled) {
+                startButton.style.display = "none";
+                stopButton.onclick = stopBot;
+                startButton.onclick = null;
+                stopButton.style.display = "block";
+            } else {
+                startButton.style.display = "block";
+                startButton.onclick = startBot;
+                stopButton.style.display = "none";
+            }
+            if (statustext == "first") {
+                startButton.style.display = "none";
+                stopButton.style.display = "none";
+            }
+        }
+
+        async function startBot() {
+
+            document.cookie = "failedToObtainProfile=false"
+            var random = Math.floor(Math.random() * 2) + 1;
+            if (/*random == 1*/false) {
+                /*Swal.fire({
+                    imageUrl: 'Cube.png', // Hier das Bild-URL einfügen
+                    imageWidth: 300,
+                    imageHeight: 300,
+                    html: '<br/><br/><button id="linkButton">Günstige Server ab 2,50€</button>', // HTML für den Button
+                    showConfirmButton: false,
+                    timer: 3000, // 3 Sekunden
+                    didOpen: () => {
+                        Swal.showLoading();
+                        const timer = Swal.getPopup().querySelector("b");
+
+                    },
+                    onOpen: () => {
+                        // Eventlistener für den Button hinzufügen
+                        document.getElementById('linkButton').addEventListener('click', () => {
+                            window.location.href = 'https://cube-hosting.net/cp/aff.php?aff=17'; // Hier den Link einfügen
+                            Swal.close(); // Popup schließen
+                        });
+                    }
+                });*/
+            } else {
+                Swal.fire({
+                    imageUrl: 'premium.png', // Hier das Bild-URL einfügen
+                    imageWidth: 300,
+                    imageHeight: 300,
+                    html: '<br/><br/><button id="linkButton">NovaBot Premium</button>', // HTML für den Button
+                    showConfirmButton: false,
+                    timer: 3000, // 3 Sekunden
+                    didOpen: () => {
+                        Swal.showLoading();
+                        const timer = Swal.getPopup().querySelector("b");
+
+                    },
+                    onOpen: () => {
+                        // Eventlistener für den Button hinzufügen
+                        document.getElementById('linkButton').addEventListener('click', () => {
+                            window.location.href = 'https://nova-bot.net/premium'; // Hier den Link einfügen
+                            Swal.close(); // Popup schließen
+                        });
+                    }
+                });
+            }
+
+            setTimeout(function () {
+
+                Swal.fire({
+                    title: "Dein Bot wird gestartet!",
+                    icon: "success"
+                });
+                vibrateWebsite()
+
+            }, 3000)
+
+
+            startButton.disabled = true;
+            stopButton.disabled = false;
+            startButton.onclick = null;
+
+
+
+            const response = fetch(`/api/control/start?botid=3VDyWPpa8IbJkc0gK4AuRmSLe3Vwqv&token=${bottoken}`);
+
+            if (response.status == 333) {
+                alert("Warnung, dein Token ist abgelaufen. Bitte melde logge dich erneut ein.")
+                window.location.href = "/login"
+                return
+            }
+
+            if (getData("kammercoords") == "0,0,0" && getData("kammercoords2") == "0,0,0") {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Warnung!",
+                    text: "Die Kammer Koordinaten sind nicht in den Einstellungen gesetzt! Der Verkauf wird nicht funktionieren!",
+                });
+                return
+            }
+
+            if (getData("autojoin") === "off") {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Warnung!",
+                    text: "AutoJoin ist aus! Du musst den Bot manuell über den Viewer navigieren!",
+                });
+            }
+            statusHeader.textContent = "🕒 (Erstellt) 🕒"
+            statusHeader.style.color = "gray";
+
+        }
+
+        async function restartBot() {
+
+            Swal.fire({
+                title: "Dein Bot wird neugestartet! Bitte warte bis zu 10 Sekunden...",
+                icon: "success"
+            });
+
+            statusHeader.textContent = "🔄 (Neustart) 🔄"
+            statusHeader.style.color = "blue";
+
+            startButton.disabled = true;
+            stopButton.disabled = false;
+
+            fetch(`/api/control/stop?botid=3VDyWPpa8IbJkc0gK4AuRmSLe3Vwqv&token=${bottoken}`);
+            setTimeout(() => {
+                fetch(`/api/control/start?botid=3VDyWPpa8IbJkc0gK4AuRmSLe3Vwqv&token=${bottoken}`);
+            }, 1500);
+        }
+
+        async function stopBot() {
+            Swal.fire({
+                title: "Dein Bot wird gestoppt!",
+                icon: "success"
+            });
+            stopButton.onclick = null;
+            //speech("Dein Bot wird gestoppt")
+            const response = fetch(`/api/control/stop?botid=3VDyWPpa8IbJkc0gK4AuRmSLe3Vwqv&token=${bottoken}`);
+            statusHeader.textContent = "❌ (Offline) ❌"
+            statusHeader.style.color = "red";
+
+        }
+    </script>
+
+    <style>
+        #linkButton {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        #linkButton:hover {
+            background-color: #45a049;
+            /* Darker Green */
+        }
+    </style>
+
+    </body>
+
+    </html>
