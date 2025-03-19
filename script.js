@@ -18,14 +18,11 @@ async function searchPlayer() {
         const uuid = uuidData.id;
 
         // Skin und Spielerdetails anzeigen
-        skinContainer.innerHTML = `<img src="https://crafatar.com/renders/body/${uuid}" alt="Minecraft Skin">`;
+        skinContainer.innerHTML = `<img src="https://crafatar.com/renders/body/${uuid}?overlay" alt="Minecraft Skin">`;
         
-        // Zusätzliche Spielerinformationen (optional)
-        const profileResponse = await fetch(`https://api.mojang.com/user/profile/${uuid}`);
-        const profileData = await profileResponse.json();
-        
+        // Zusätzliche Spielerinformationen
         details.innerHTML = `
-            <p><strong>Name:</strong> ${profileData.name}</p>
+            <p><strong>Name:</strong> ${uuidData.name}</p>
             <p><strong>UUID:</strong> ${uuid}</p>
         `;
     } catch (error) {
