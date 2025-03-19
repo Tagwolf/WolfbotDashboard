@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wartungsarbeiten</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #181A1B;
+            font-family: 'Inter', sans-serif;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+
+        header {
+            position: absolute;
+            top: 34px;
+            left: 34px;
+            right: 34px;
+            width: calc(100% - 68px);
+            height: 60px;
+            background-color: #000000;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 27px;
+            box-sizing: border-box;
+        }
+
+        header h1 {
+            font-size: 40px;
+            font-weight: 700;
+            color: white;
+            margin: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: #181A1B;
+            width: 100px;
+            justify-content: center;
+        }
+
+        .nav-links a:hover {
+            background-color: #333;
+        }
+
+        .fa {
+            font-size: 150px;
+            color: red;
+        }
+
+        .content {
+            text-align: center;
+        }
+
+        .content h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+
+        .content p {
+            font-size: 24px;
+            margin-top: 60px;
+        }
+
+        .nav-links i {
+            font-size: 20px;
+            color: white;
+        }
+
+        .login-icon {
+            font-size: 18px;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 14px;
+            color: white;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <header>
+        <h1>NovaBot</h1>
+        <div class="nav-links">
+            <a href="https://gg-novabot.gitbook.io/grieferbot-wiki" target="_blank">
+                <i class="fa fa-book"></i>
+                Wiki
+            </a>
+            <a href="https://discord.gg/CwdVEafsPx" target="_blank">
+                <i class="fa fa-comments"></i>
+                Discord
+            </a>
+            <a href="/dashboard">
+                <i class="fa fa-bar-chart"></i>
+                Dashboard
+            </a>
+            <a href="/login">
+                <i class="fa fa-sign-in login-icon"></i>
+                Login
+            </a>
+        </div>
+    </header>
+
+    <div class="content">
+        <i class="fa fa-exclamation-triangle fa-5x"></i>
+        <h2>Wir sind bald zurück</h2>
+        <p>Diese Website ist aufgrund von Wartungsarbeiten momentan nicht verfügbar.<br>Bitte versuchen Sie es später noch einmal.</p>
+    </div>
+
+    <footer>
+        <a href="/datenschutz" target="_blank">Datenschutz</a> | 
+        <a href="/agb" target="_blank">AGBs</a>
+    </footer>
+</body>
+</html>
