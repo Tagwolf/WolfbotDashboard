@@ -83,6 +83,21 @@
             border-radius: 5px;
             margin-right: 10px;
         }
+        .player-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: none;
+            text-align: center;
+        }
+        .player-info img {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
@@ -95,6 +110,11 @@
     <div class="activity">
         <h3>Aktivität</h3>
         <div id="activity-list"></div>
+    </div>
+    <div class="player-info" id="playerInfo">
+        <img id="playerAvatar" src="" alt="Spieler Kopf">
+        <h3 id="playerNameDisplay"></h3>
+        <p id="playerUUID"></p>
     </div>
 
     <script>
@@ -129,7 +149,12 @@
                     })
                     .then(data => {
                         const playerId = data.uuid;
-                        const avatarUrl = `https://mc-heads.net/avatar/${playerId}/50`;
+                        const avatarUrl = `https://mc-heads.net/avatar/${playerId}/100`;
+                        
+                        document.getElementById("playerAvatar").src = avatarUrl;
+                        document.getElementById("playerNameDisplay").textContent = data.username;
+                        document.getElementById("playerUUID").textContent = `UUID: ${playerId}`;
+                        document.getElementById("playerInfo").style.display = "block";
                         
                         let activity = JSON.parse(localStorage.getItem("activity")) || [];
                         activity = activity.filter(p => p.name !== playerName);
