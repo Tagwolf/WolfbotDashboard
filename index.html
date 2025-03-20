@@ -103,7 +103,7 @@
             activityList.innerHTML = "";
             const players = JSON.parse(localStorage.getItem("activity")) || [];
             players.forEach(player => {
-                const avatarUrl = `https://minotar.net/helm/${player.name}/50`;
+                const avatarUrl = `https://mc-heads.net/avatar/${player.id}/50`;
                 const div = document.createElement("div");
                 div.classList.add("activity-item");
                 div.innerHTML = `
@@ -118,15 +118,28 @@
         }
 
         function searchPlayer() {
-            const playerName = document.getElementById("playerName").value;
+            const playerName = document.getElementById("playerName").value.trim();
             if (playerName) {
-                const avatarUrl = `https://minotar.net/helm/${playerName}/50`;
-                
-                let activity = JSON.parse(localStorage.getItem("activity")) || [];
-                activity = activity.filter(p => p.name !== playerName);
-                activity.unshift({ name: playerName });
-                localStorage.setItem("activity", JSON.stringify(activity.slice(0, 8)));
-                loadActivity();
+                fetch(`https://api.ashcon.app/mojang/v2/user/${playerName}`)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("Spieler nicht gefunden");
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const playerId = data.uuid;
+                        const avatarUrl = `https://mc-heads.net/avatar/${playerId}/50`;
+                        
+                        let activity = JSON.parse(localStorage.getItem("activity")) || [];
+                        activity = activity.filter(p => p.name !== playerName);
+                        activity.unshift({ name: playerName, id: playerId });
+                        localStorage.setItem("activity", JSON.stringify(activity.slice(0, 8)));
+                        loadActivity();
+                    })
+                    .catch(error => {
+                        alert("Spieler nicht gefunden oder Fehler bei der Suche");
+                    });
             }
         }
 
