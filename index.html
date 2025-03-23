@@ -13,19 +13,20 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
+            justify-content: start;
+            padding: 20px;
         }
         .logo {
             font-size: 3rem;
             font-weight: bold;
             color: #4fc3f7;
             text-shadow: 0 0 10px #4fc3f7;
+            margin-bottom: 20px;
         }
         .search-container {
-            margin-top: 20px;
             display: flex;
             gap: 10px;
+            margin-bottom: 20px;
         }
         .search-container input {
             padding: 10px;
@@ -33,9 +34,10 @@
             border: none;
             border-radius: 5px;
             outline: none;
+            width: 300px;
         }
         .search-container button {
-            padding: 10px 15px;
+            padding: 10px 20px;
             font-size: 1rem;
             border: none;
             border-radius: 5px;
@@ -50,93 +52,120 @@
         .search-container button.search:hover {
             background-color: #388e3c;
         }
-        .search-container button.chat {
-            background-color: #fb8c00;
-            color: white;
-        }
-        .search-container button.chat:hover {
-            background-color: #ef6c00;
-        }
-        .activity {
-            position: fixed;
-            right: 20px;
-            top: 20px;
-            background-color: #1e1e1e;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            width: 250px;
-        }
-        .activity h3 {
-            margin: 0;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
-        }
-        .activity-item {
+        .player-box {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            margin-bottom: 10px;
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 600px;
         }
-        .activity-item img {
-            width: 50px;
-            height: 50px;
+        .player-box img {
+            width: 150px;
+            height: 300px;
             border-radius: 5px;
-            margin-right: 10px;
+            margin-bottom: 10px;
         }
         .player-info {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #1e1e1e;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            display: none;
             text-align: center;
+            margin-bottom: 20px;
         }
-        .player-info img {
-            width: 100px;
-            height: 100px;
+        .player-info h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .player-info p {
+            margin: 5px 0;
+            color: #aaaaaa;
+        }
+        .name-history, .chat-history {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .name-history h3, .chat-history h3 {
+            margin: 0 0 10px 0;
+        }
+        .name-history ul {
+            list-style: none;
+            padding: 0;
+        }
+        .name-history ul li {
+            background: #2a2a2a;
+            margin-bottom: 5px;
+            padding: 10px;
             border-radius: 5px;
-            margin-bottom: 10px;
+        }
+        .chat-history {
+            background: #2a2a2a;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .chat-history p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+            color: #cccccc;
+        }
+        .button-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .button-container button {
+            padding: 10px 15px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            outline: none;
+            transition: background-color 0.3s;
+        }
+        .button-container button.verify {
+            background-color: #4caf50;
+            color: white;
+        }
+        .button-container button.verify:hover {
+            background-color: #43a047;
+        }
+        .button-container button.toggle {
+            background-color: #f44336;
+            color: white;
+        }
+        .button-container button.toggle:hover {
+            background-color: #d32f2f;
         }
     </style>
 </head>
 <body>
     <div class="logo">FINDR</div>
     <div class="search-container">
-        <input type="text" id="playerName" placeholder="Spielernamen eingeben...">
+        <input type="text" id="playerName" placeholder="Minecraft-Namen suchen...">
         <button class="search" onclick="searchPlayer()">Suchen</button>
-        <button class="chat">Chatverläufe</button>
     </div>
-    <div class="activity">
-        <h3>Aktivität</h3>
-        <div id="activity-list"></div>
-    </div>
-    <div class="player-info" id="playerInfo">
-        <img id="playerAvatar" src="" alt="Spieler Kopf">
-        <h3 id="playerNameDisplay"></h3>
-        <p id="playerUUID"></p>
+    <div class="player-box" id="playerBox" style="display: none;">
+        <img id="playerSkin" src="" alt="Spieler Skin">
+        <div class="player-info">
+            <h2 id="playerNameDisplay"></h2>
+            <p id="playerUUID"></p>
+        </div>
+        <div class="button-container">
+            <button class="verify">Profil verifizieren</button>
+            <button class="toggle">Scammer</button>
+            <button class="toggle">MM</button>
+        </div>
+        <div class="name-history">
+            <h3>Frühere Namen</h3>
+            <ul id="nameHistory"></ul>
+        </div>
+        <div class="chat-history">
+            <h3>Nachrichten</h3>
+            <p>Hier werden Cloud-Nachrichten angezeigt.</p>
+        </div>
     </div>
 
     <script>
-        function loadActivity() {
-            const activityList = document.getElementById("activity-list");
-            activityList.innerHTML = "";
-            const players = JSON.parse(localStorage.getItem("activity")) || [];
-            players.forEach(player => {
-                const avatarUrl = `https://mc-heads.net/avatar/${player.id}/50`;
-                const div = document.createElement("div");
-                div.classList.add("activity-item");
-                div.innerHTML = `
-                    <img src="${avatarUrl}" alt="${player.name}">
-                    <div>
-                        <div class="name">${player.name}</div>
-                        <div class="time">vor wenigen Minuten</div>
-                    </div>
-                `;
-                activityList.appendChild(div);
-            });
-        }
-
         function searchPlayer() {
             const playerName = document.getElementById("playerName").value.trim();
             if (playerName) {
@@ -148,27 +177,26 @@
                         return response.json();
                     })
                     .then(data => {
-                        const playerId = data.uuid;
-                        const avatarUrl = `https://mc-heads.net/avatar/${playerId}/100`;
-                        
-                        document.getElementById("playerAvatar").src = avatarUrl;
+                        // Anzeigen von Spielerinformationen
+                        document.getElementById("playerSkin").src = `https://mc-heads.net/body/${data.uuid}`;
                         document.getElementById("playerNameDisplay").textContent = data.username;
-                        document.getElementById("playerUUID").textContent = `UUID: ${playerId}`;
-                        document.getElementById("playerInfo").style.display = "block";
-                        
-                        let activity = JSON.parse(localStorage.getItem("activity")) || [];
-                        activity = activity.filter(p => p.name !== playerName);
-                        activity.unshift({ name: playerName, id: playerId });
-                        localStorage.setItem("activity", JSON.stringify(activity.slice(0, 8)));
-                        loadActivity();
+                        document.getElementById("playerUUID").textContent = `UUID: ${data.uuid}`;
+                        document.getElementById("playerBox").style.display = "block";
+
+                        // Namensverlauf
+                        const nameHistory = document.getElementById("nameHistory");
+                        nameHistory.innerHTML = "";
+                        data.textures.name_history.forEach(name => {
+                            const li = document.createElement("li");
+                            li.textContent = `${name.name} (${name.changed_at ? new Date(name.changed_at).toLocaleDateString() : "Erster Name"})`;
+                            nameHistory.appendChild(li);
+                        });
                     })
                     .catch(error => {
                         alert("Spieler nicht gefunden oder Fehler bei der Suche");
                     });
             }
         }
-
-        window.onload = loadActivity;
     </script>
 </body>
 </html>
